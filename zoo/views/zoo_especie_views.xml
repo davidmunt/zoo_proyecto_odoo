@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="zoo_especie_action" model="ir.actions.act_window">
+        <field name="name">Especie</field>
+        <field name="res_model">zoo.especie</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="zoo_especie_view_tree" model="ir.ui.view">
+        <field name="name">zoo.especie.tree</field>
+        <field name="model">zoo.especie</field>
+        <field name="arch" type="xml">
+            <tree string="Especie">
+                <field name="sequence" widget="handle"/>
+                <field name="familia"/>
+                <field name="nom_cientifico"/>
+                <field name="nom_vulgar"/>
+                <field name="tipo_alimentacion" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+    <record id="zoo_especie_view_form" model="ir.ui.view">
+        <field name="name">zoo.especie.form</field>
+        <field name="model">zoo.especie</field>
+        <field name="arch" type="xml">
+            <form string="Descripcion">
+                <sheet>
+                    <group>
+                        <field name="tipo_alimentacion" widget="statusbar"/>
+                        <field name="nom_cientifico"/>
+                        <field name="nom_vulgar"/>
+                        <field name="familia"/>
+                    </group>
+                    <notebook>
+                        <page string="Mas cosas">
+                            <group>
+                                <field name="peligro_extincion"/>
+                                <field name="nivel_peligro"/>
+                                <field name="tipo_alimentacion"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="zoo_especie_view_search" model="ir.ui.view">
+        <field name="name">zoo.especie.search</field>
+        <field name="model">zoo.especie</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="nom_cientifico"/>
+                <field name="nom_vulgar"/>
+                <field name="familia"/>
+                <field name="tipo_alimentacion" filter_domain="[('tipo_alimentacion', '=', self)]"/>
+            </search>
+        </field>
+    </record>
+</odoo>

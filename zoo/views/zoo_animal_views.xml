@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="zoo_animal_action" model="ir.actions.act_window">
+        <field name="name">Animal</field>
+        <field name="res_model">zoo.animal</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('estado', 'not in', ['fallecido'])]</field>
+    </record>
+    <record id="zoo_animal_view_tree" model="ir.ui.view">
+        <field name="name">zoo.animal.tree</field>
+        <field name="model">zoo.animal</field>
+        <field name="arch" type="xml">
+            <tree string="Animal" decoration-success="estado == 'disponible'" decoration-warning="estado == 'enfermo'">
+                <field name="sequence" widget="handle"/>
+                <field name="raza"/>
+                <field name="estado"/>
+                <field name="continente_origen"/>
+                <field name="fecha_nac"/>
+                <field name="pais_origen"/>
+                <field name="sexo"/>
+                <field name="edad"/>
+            </tree>
+        </field>
+    </record>
+    <record id="zoo_animal_view_form" model="ir.ui.view">
+        <field name="name">zoo.animal.form</field>
+        <field name="model">zoo.animal</field>
+        <field name="arch" type="xml">
+            <form string="Descripcion">
+                <header>
+                    <field name="estado" widget="statusbar"/>                    
+                    <button name="marcar_disponible" string="Disponible" type="object" invisible="estado in ('disponible', 'fallecido')"/>
+                    <button name="marcar_enfermo" string="Enfermo" type="object" invisible="estado in ('enfermo', 'fallecido')"/>
+                    <button name="marcar_fallecido" string="Fallecido" type="object" invisible="estado in ('fallecido')"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="zoo_id"/>
+                        <field name="raza"/>
+                        <field name="foto"/>
+                    </group>
+                    <notebook>
+                        <page string="Origen del animal">
+                            <group>
+                                <field name="continente_origen"/>
+                                <field name="pais_origen"/>
+                            </group>
+                        </page>
+                        <page string="Mas datos">
+                            <group>
+                                <field name="peso"/>
+                                <field name="altura"/>
+                                <field name="sexo"/>
+                                <field name="fecha_nac"/>
+                                <field name="fecha_fall" invisible="estado != 'fallecido'"/>
+                                <field name="edad"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="zoo_animal_view_search" model="ir.ui.view">
+        <field name="name">zoo.animal.search</field>
+        <field name="model">zoo.animal</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="raza"/>
+                <field name="estado" filter_domain="[('estado', '=', self)]"/>
+                <field name="edad" filter_domain="[('edad', '>=', self)]"/>
+            </search>
+        </field>
+    </record>
+</odoo>

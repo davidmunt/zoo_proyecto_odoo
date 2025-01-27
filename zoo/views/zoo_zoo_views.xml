@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="zoo_zoo_action" model="ir.actions.act_window">
+        <field name="name">Zoo</field>
+        <field name="res_model">zoo.zoo</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="zoo_zoo_view_tree" model="ir.ui.view">
+        <field name="name">zoo.zoo.tree</field>
+        <field name="model">zoo.zoo</field>
+        <field name="arch" type="xml">
+            <tree string="Zoo" decoration-success="tiene_animales_vivos" decoration-bf="not tiene_animales_vivos">
+                <field name="sequence" widget="handle"/>
+                <field name="name" string="Nombre"/>
+                <field name="ciudad"/>
+                <field name="pais_id"/>
+                <field name="superficie" string="Superficie (m²)"/>
+                <field name="animales_ids" invisible="1"/>
+                <field name="tiene_animales_vivos" invisible="1"/>
+                <field name="cant_animales" string="Cantidad de animales"/>
+            </tree>
+        </field>
+    </record>
+    <record id="zoo_zoo_view_form" model="ir.ui.view">
+        <field name="name">zoo.zoo.form</field>
+        <field name="model">zoo.zoo</field>
+        <field name="arch" type="xml">
+            <form string="Descripcion">
+                <sheet>
+                    <group>
+                        <field name="name" string="Nombre"/>
+                        <field name="logo" string="Logo"/>
+                        <field name="fecha_fund" string="Fecha de Fundacion"/>
+                    </group>
+                    <notebook>
+                        <page string="Mas cosas">
+                            <group>
+                                <field name="ciudad" string="Ciudad"/>
+                                <field name="pais_id" string="Pais"/>
+                                <field name="animales_ids" widget="many2many_tags" options="{'no_open': True}" string="Animales"/>
+                                <field name="cant_animales" string="Cantidad de animales"/>
+                            </group>
+                        </page>
+                        <page string="Superficie">
+                            <group>
+                                <field name="superficie" string="Superficie (m²)"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="zoo_zoo_view_search" model="ir.ui.view">
+        <field name="name">zoo.zoo.search</field>
+        <field name="model">zoo.zoo</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="pais_id"/>
+                <field name="ciudad"/>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+</odoo>

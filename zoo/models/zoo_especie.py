@@ -2,28 +2,30 @@
 
 from odoo import models, fields
 
-class Property(models.Model):
+class Especie(models.Model):
     _name = 'zoo.especie'
 
     familia = fields.Char(required=True, String="Familia")
-    nomCientifico = fields.Date(required=True, String="Nombre cientifico")
-    nomVulgar = fields.Date(required=True, String="Nombre vulgar")
-    peligroso = fields.Boolean(required=True)
-    peligro = fields.Selection(
+    nom_cientifico = fields.Char(required=True, String="Nombre cientifico")
+    nom_vulgar = fields.Char(required=True, String="Nombre vulgar")
+    peligro_extincion = fields.Boolean(required=True, String="Pelogro de extinción")
+    sequence = fields.Integer('Sequence', default=1, help="Used to order stages. Lower is better.")
+    nivel_peligro = fields.Selection(
         [
-            ('Alto', 'Alto'),
-            ('Medio', 'Medio'),
-            ('Bajo', 'Bajo')
+            ('alto', 'Alto'),
+            ('medio', 'Medio'),
+            ('bajo', 'Bajo'),
+            ('nulo', 'Nulo')
         ],
         copy=False,
-        string="Nivel de Peligro"
+        string="Nivel de peligro"
     )
     tipo_alimentacion = fields.Selection(
         [
-            ('Carnivoro', 'Carnívoro'),
-            ('Hervivoro', 'Hervívoro'),
-            ('Omnivoro', 'Omnívoro')
+            ('carnivoro', 'Carnívoro'),
+            ('hervivoro', 'Hervívoro'),
+            ('omnivoro', 'Omnívoro')
         ],
         copy=False,
-        string="Tipo de Alimentacion"
+        string="Tipo de alimentacion"
     )
