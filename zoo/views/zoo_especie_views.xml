@@ -12,8 +12,8 @@
             <tree string="Especie">
                 <field name="sequence" widget="handle"/>
                 <field name="familia"/>
-                <field name="nom_cientifico"/>
-                <field name="nom_vulgar"/>
+                <field name="nom_cientifico" string="Nombre cientifico"/>
+                <field name="name" string="Nombre vulgar"/>
                 <field name="tipo_alimentacion" widget="badge"/>
             </tree>
         </field>
@@ -25,20 +25,13 @@
             <form string="Descripcion">
                 <sheet>
                     <group>
-                        <field name="tipo_alimentacion" widget="statusbar"/>
-                        <field name="nom_cientifico"/>
-                        <field name="nom_vulgar"/>
+                        <field name="nom_cientifico" string="Nombre cientifico"/>
+                        <field name="name" string="Nombre vulgar"/>
                         <field name="familia"/>
+                        <field name="peligro_extincion"/>
+                        <field name="nivel_peligro"/>
+                        <field name="tipo_alimentacion"/>
                     </group>
-                    <notebook>
-                        <page string="Mas cosas">
-                            <group>
-                                <field name="peligro_extincion"/>
-                                <field name="nivel_peligro"/>
-                                <field name="tipo_alimentacion"/>
-                            </group>
-                        </page>
-                    </notebook>
                 </sheet>
             </form>
         </field>
@@ -48,8 +41,8 @@
         <field name="model">zoo.especie</field>
         <field name="arch" type="xml">
             <search>
-                <field name="nom_cientifico"/>
-                <field name="nom_vulgar"/>
+                <field name="nom_cientifico" string="Nombre cientifico"/>
+                <field name="name" string="Nombre vulgar"/>
                 <field name="familia"/>
                 <field name="tipo_alimentacion" filter_domain="[('tipo_alimentacion', '=', self)]"/>
             </search>

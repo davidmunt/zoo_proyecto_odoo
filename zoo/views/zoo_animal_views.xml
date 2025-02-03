@@ -12,7 +12,7 @@
         <field name="arch" type="xml">
             <tree string="Animal" decoration-success="estado == 'disponible'" decoration-warning="estado == 'enfermo'">
                 <field name="sequence" widget="handle"/>
-                <field name="raza"/>
+                <field name="name" string="Raza"/>
                 <field name="estado"/>
                 <field name="continente_origen"/>
                 <field name="fecha_nac"/>
@@ -27,17 +27,18 @@
         <field name="model">zoo.animal</field>
         <field name="arch" type="xml">
             <form string="Descripcion">
-                <header>
-                    <field name="estado" widget="statusbar"/>                    
+                <header>                  
                     <button name="marcar_disponible" string="Disponible" type="object" invisible="estado in ('disponible', 'fallecido')"/>
                     <button name="marcar_enfermo" string="Enfermo" type="object" invisible="estado in ('enfermo', 'fallecido')"/>
                     <button name="marcar_fallecido" string="Fallecido" type="object" invisible="estado in ('fallecido')"/>
                 </header>
                 <sheet>
                     <group>
+                        <field name="foto" widget="image" class="oe_avatar"/>
+                        <field name="name" string="Raza"/>
                         <field name="zoo_id"/>
-                        <field name="raza"/>
-                        <field name="foto"/>
+                        <field name="especie_id"/>
+                        <field name="estado"/>  
                     </group>
                     <notebook>
                         <page string="Origen del animal">
@@ -66,7 +67,7 @@
         <field name="model">zoo.animal</field>
         <field name="arch" type="xml">
             <search>
-                <field name="raza"/>
+                <field name="name" string="Raza"/>
                 <field name="estado" filter_domain="[('estado', '=', self)]"/>
                 <field name="edad" filter_domain="[('edad', '>=', self)]"/>
             </search>

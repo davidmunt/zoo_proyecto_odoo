@@ -7,7 +7,7 @@ from odoo import models, fields, api
 class Animal(models.Model):
     _name = 'zoo.animal'
 
-    raza = fields.Char(string="Raza", required=True)
+    name = fields.Char(string="Raza", required=True)
     peso = fields.Float(string="Peso (kg)", required=True)
     altura = fields.Float(string="Altura (cm)", required=True)
     continente_origen = fields.Selection(
@@ -24,7 +24,7 @@ class Animal(models.Model):
         string="Continente de origen"
     )
     fecha_nac = fields.Date(required=True, store=True, string="Fecha de nacimiento")
-    pais_origen = fields.Many2one('res.country', string='Pais')
+    pais_origen = fields.Many2one('res.country', string='Pais', required=True)
     sequence = fields.Integer('Sequence', default=1, help="Used to order stages. Lower is better.")
     sexo = fields.Selection(
         [
@@ -50,15 +50,17 @@ class Animal(models.Model):
     fecha_fall = fields.Date(string="Fecha de fallecimiento", compute="_compute_fall")
     foto = fields.Image(string="Foto")
     zoo_id = fields.Many2one("zoo.zoo", required=True, string="Zoo")
+    especie_id = fields.Many2one("zoo.especie", required=True, string="Especie")
     
-    @api.depends('fecha_nac')
+    @api.depends('fecha_nac', 'estado')
     def _compute_edad(self):
         for record in self:
-            if record.fecha_nac:
+            if record.estado == 'fallecido':
+                record.edad = record.edad
+            elif record.fecha_nac:
                 ahora = date.today()
                 fecha_de_nacimiento = fields.Datetime.to_datetime(record.fecha_nac).date()
-                total_edad = int((ahora - fecha_de_nacimiento).days / 365)
-                record.edad = total_edad
+                record.edad = int((ahora - fecha_de_nacimiento).days / 365)
             else:
                 record.edad = 0
                 
