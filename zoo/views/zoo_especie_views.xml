@@ -3,7 +3,7 @@
     <record id="zoo_especie_action" model="ir.actions.act_window">
         <field name="name">Especie</field>
         <field name="res_model">zoo.especie</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">kanban,list,form</field>
     </record>
     <record id="zoo_especie_view_tree" model="ir.ui.view">
         <field name="name">zoo.especie.tree</field>
@@ -14,8 +14,33 @@
                 <field name="familia"/>
                 <field name="nom_cientifico" string="Nombre cientifico"/>
                 <field name="name" string="Nombre vulgar"/>
-                <field name="tipo_alimentacion" widget="badge"/>
+                <field name="tipo_alimentacion"/>
             </tree>
+        </field>
+    </record>
+    <record id="zoo_especie_kanban" model="ir.ui.view">
+        <field name="name">zoo.especie.kanban</field>
+        <field name="model">zoo.especie</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box"> 
+                        <div class="oe_kanban_card">
+                            <div class="oe_kanban_global_click">
+                                <div style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%;">
+                                    <strong><field name="name"/></strong>
+                                    <div>
+                                        <span>Nombre cientifico: <field name="nom_cientifico"/></span><br/>
+                                        <span>Familia: <field name="familia"/></span><br/>
+                                        <span>Tipo de alimentacion: <field name="tipo_alimentacion"/></span><br/>
+                                        <span>Nivel de peligro: <field name="nivel_peligro"/></span><br/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
     <record id="zoo_especie_view_form" model="ir.ui.view">

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from datetime import date
 from odoo.exceptions import UserError
 from odoo import models, fields, api

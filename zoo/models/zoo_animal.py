@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from datetime import date
 from odoo.exceptions import UserError
 from odoo import models, fields, api
@@ -48,9 +46,10 @@ class Animal(models.Model):
     )
     edad = fields.Integer(string="Edad", compute="_compute_edad", required=True)
     fecha_fall = fields.Date(string="Fecha de fallecimiento", compute="_compute_fall")
-    foto = fields.Image(string="Foto")
+    foto = fields.Image(string="Foto", store=True, required=True)
     zoo_id = fields.Many2one("zoo.zoo", required=True, string="Zoo")
     especie_id = fields.Many2one("zoo.especie", required=True, string="Especie")
+    zona_id = fields.Many2one('zoo.zona', required=True, string="Zona")
     
     @api.depends('fecha_nac', 'estado')
     def _compute_edad(self):

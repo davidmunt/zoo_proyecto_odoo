@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="zoo_etiqueta_action" model="ir.actions.act_window">
-        <field name="name">Etiqueta</field>
-        <field name="res_model">zoo.etiqueta</field>
+    <record id="zoo_zona_action" model="ir.actions.act_window">
+        <field name="name">Zona</field>
+        <field name="res_model">zoo.zona</field>
         <field name="view_mode">kanban,list,form</field>
     </record>
-    <record id="zoo_etiqueta_view_tree" model="ir.ui.view">
-        <field name="name">zoo.etiqueta.tree</field>
-        <field name="model">zoo.etiqueta</field>
+    <record id="zoo_zona_view_tree" model="ir.ui.view">
+        <field name="name">zoo.zona.tree</field>
+        <field name="model">zoo.zona</field>
         <field name="arch" type="xml">
-            <tree string="Etiqueta">
+            <tree string="Zona">
                 <field name="sequence" widget="handle"/>
-                <field name="name" string="Etiqueta"/>
+                <field name="name" string="Zona"/>
                 <field name="descripcion" string="Descripcion"/>
             </tree>
         </field>
     </record>
-    <record id="zoo_etiqueta_kanban" model="ir.ui.view">
-        <field name="name">zoo.etiqueta.kanban</field>
-        <field name="model">zoo.etiqueta</field>
+    <record id="zoo_zona_kanban" model="ir.ui.view">
+        <field name="name">zoo.zona.kanban</field>
+        <field name="model">zoo.zona</field>
         <field name="arch" type="xml">
             <kanban>
                 <templates>
@@ -38,23 +38,23 @@
             </kanban>
         </field>
     </record>
-    <record id="zoo_etiqueta_view_form" model="ir.ui.view">
-        <field name="name">zoo.etiqueta.form</field>
-        <field name="model">zoo.etiqueta</field>
+    <record id="zoo_zona_view_form" model="ir.ui.view">
+        <field name="name">zoo.zona.form</field>
+        <field name="model">zoo.zona</field>
         <field name="arch" type="xml">
-            <form string="Etiqueta">
+            <form string="Zona">
                 <sheet>
                     <group>
-                        <field name="name" string="Etiqueta"/>
+                        <field name="name" string="Zona"/>
                         <field name="descripcion" string="Descripcion"/>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
-    <record id="zoo_etiqueta_view_search" model="ir.ui.view">
-        <field name="name">zoo.etiqueta.search</field>
-        <field name="model">zoo.etiqueta</field>
+    <record id="zoo_zona_view_search" model="ir.ui.view">
+        <field name="name">zoo.zona.search</field>
+        <field name="model">zoo.zona</field>
         <field name="arch" type="xml">
             <search>
                 <field name="name" string="Nombre"/>

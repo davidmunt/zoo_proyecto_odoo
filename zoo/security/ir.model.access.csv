@@ -3,3 +3,5 @@
 "access_zoo_animal","zoo.animal group_user","model_zoo_animal","base.group_user",1,1,1,1
 "access_zoo_especie","zoo.especie group_user","model_zoo_especie","base.group_user",1,1,1,1
 "access_zoo_etiqueta","zoo.etiqueta group_user","model_zoo_etiqueta","base.group_user",1,1,1,1
+"access_zoo_horario","zoo.horario group_user","model_zoo_horario","base.group_user",1,1,1,1
+"access_zoo_zona","zoo.zona group_user","model_zoo_zona","base.group_user",1,1,1,1

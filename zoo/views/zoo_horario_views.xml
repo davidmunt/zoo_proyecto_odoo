@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="zoo_horario_tree" model="ir.ui.view">
+        <field name="name">zoo.horario.tree</field>
+        <field name="model">zoo.horario</field>
+        <field name="arch" type="xml">
+            <tree string="Horario de Apertura">
+                <field name="orden_dia" invisible="True"/>
+                <field name="dia_semana"/>
+                <field name="apertura"/>
+                <field name="cierre"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

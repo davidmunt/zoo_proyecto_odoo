@@ -3,7 +3,7 @@
     <record id="zoo_zoo_action" model="ir.actions.act_window">
         <field name="name">Zoo</field>
         <field name="res_model">zoo.zoo</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">kanban,list,form</field>
     </record>
     <record id="zoo_zoo_view_tree" model="ir.ui.view">
         <field name="name">zoo.zoo.tree</field>
@@ -15,10 +15,44 @@
                 <field name="ciudad"/>
                 <field name="pais_id"/>
                 <field name="superficie" string="Superficie (m²)"/>
+                <field name="etiqueta_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="animales_ids" invisible="True"/>
                 <field name="tiene_animales_vivos" invisible="True"/>
                 <field name="cant_animales" string="Cantidad de animales"/>
             </tree>
+        </field>
+    </record>
+    <record id="zoo_zoo_kanban" model="ir.ui.view">
+        <field name="name">zoo.zoo.kanban</field>
+        <field name="model">zoo.zoo</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box"> 
+                        <div class="oe_kanban_card">
+                            <div class="oe_kanban_global_click">
+                                <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-around; width: 100%;">
+                                    <div class="oe_kanban_image" style="flex-shrink: 0; margin-right: 10px;">
+                                        <field name="logo" invisible="True"/>
+                                        <field name="logo" widget="image" class="oe_avatar" style="max-width: 100px; max-height: 100px; width: 100px; height: 100px; object-fit: contain;"/>
+                                    </div>
+                                    <div style="text-align: left; max-width: 200px;">
+                                        <strong><field name="name"/></strong>
+                                        <div>
+                                            <span>Superficie: <field name="superficie"/> m²</span><br/>
+                                            <span>Ciudad: <field name="ciudad"/></span><br/>
+                                            <span>País: <field name="pais_id"/></span><br/><br/>
+                                        </div>
+                                        <div>
+                                            <span><field name="etiqueta_ids" widget="many2many_tags" options="{'color_field': 'color'}"/></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
     <record id="zoo_zoo_view_form" model="ir.ui.view">
@@ -26,32 +60,40 @@
         <field name="model">zoo.zoo</field>
         <field name="arch" type="xml">
             <form string="Descripcion">
+                <h1>
+                    <field name="name" string="Nombre"/>
+                </h1>
                 <sheet>
                     <group>
-                        <field name="logo" widget="image" class="oe_avatar"/>
-                        <field name="name" string="Nombre"/>
+                        <field name="logo" widget="image" class="oe_avatar" options="{'size': [300, 300]}"/>
                         <field name="fecha_fund" string="Fecha de Fundacion"/>
-                        <field name="superficie" string="Superficie (m²)"/>
                         <field name="etiqueta_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        <field name="superficie" string="Superficie del zoo (m²)"/>
+                        <field name="pais_id" string="Pais"/> 
+                        <field name="provincia_id" string="Provincia" domain="[('country_id', '=', pais_id)]"/>
+                        <field name="ciudad" string="Ciudad"/>
+                        <field name="direccion" string="Direccion"/>
                     </group>
                     <notebook>
-                        <page string="Ubicacion">
-                            <group>
-                                <field name="pais_id" string="Pais"/> 
-                                <field name="provincia_id" string="Provincia" domain="[('country_id', '=', pais_id)]"/>
-                                <field name="ciudad" string="Ciudad"/>
-                                <field name="direccion" string="Direccion"/>
-                            </group>
+                        <page string="Horario de Apertura">
+                            <field name="horario_ids">
+                                <tree editable="bottom">
+                                    <field name="dia_semana"/>
+                                    <field name="apertura"/>
+                                    <field name="cierre"/>
+                                </tree>
+                            </field>
                         </page>
                         <page string="Animales">
                             <group>
+                                <field name="animales_ids" invisible="True"/>
                                 <field name="cant_animales" string="Total animales:"/>
                                 <field name="cant_animales_disponible" string="Animales disponibles:"/>
                                 <field name="cant_animales_enfermo" string="Animales enfermos:"/>
                                 <field name="cant_animales_herv" string="Animales hervivoros:"/>
                                 <field name="cant_animales_carn" string="Animales carnivoros:"/>
                                 <field name="cant_animales_omni" string="Animales omnivoros:"/>
-                                <field name="animales_ids" domain="[('estado', '=', 'fallecido')]">
+                                <field name="animales_vivos_ids">
                                     <tree>
                                         <field name="name" string="Especie"/>
                                         <field name="continente_origen"/>
@@ -59,6 +101,21 @@
                                         <field name="sexo"/>
                                     </tree>
                                 </field>
+                            </group>
+                        </page>
+                        <page string="Especies">
+                            <group>
+                                <field name="animales_ids" invisible="True"/>
+                                <field name="cant_especies" string="Total especies:"/>
+                                <field name="cant_especies_extin" string="Total especies en peligro de extincion:"/>
+                                <field name="especies_nombres" string="Especies:"/>
+                            </group>
+                        </page>
+                        <page string="Zonas">
+                            <group>
+                                <field name="animales_ids" invisible="True"/>
+                                <field name="cant_zonas" string="Total zonas:"/>
+                                <field name="zonas_nombres" string="Zonas:"/>
                             </group>
                         </page>
                     </notebook>
@@ -71,10 +128,18 @@
         <field name="model">zoo.zoo</field>
         <field name="arch" type="xml">
             <search>
-                <field name="pais_id"/>
+                <field name="pais_id"/> 
                 <field name="ciudad"/>
                 <field name="name"/>
+                <field name="cant_animales"/>
             </search>
         </field>
+    </record>
+    <record id="action_animales_de_zoo" model="ir.actions.act_window">
+        <field name="name">Animales del Zoo</field>
+        <field name="res_model">zoo.animal</field>
+        <field name="view_mode">tree,kanban</field>
+        <field name="domain">[('zoo_id', '=', parent.id)]</field>
+        <field name="context">{'default_zoo_id': active_id}</field>
     </record>
 </odoo>

@@ -3,8 +3,41 @@
     <record id="zoo_animal_action" model="ir.actions.act_window">
         <field name="name">Animal</field>
         <field name="res_model">zoo.animal</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="domain">[('estado', 'not in', ['fallecido'])]</field>
+    </record>
+    <record id="zoo_animal_kanban" model="ir.ui.view">
+        <field name="name">zoo.animal.kanban</field>
+        <field name="model">zoo.animal</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="foto" invisible="True"/>
+                <templates>
+                    <t t-name="kanban-box"> 
+                        <div class="oe_kanban_card">
+                            <div class="oe_kanban_global_click">
+                                <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-around; width: 100%;">
+                                    <div class="oe_kanban_image" style="flex-shrink: 0; margin-right: 10px;">
+                                        <field name="foto" invisible="True"/>
+                                        <field name="foto" widget="image" class="oe_avatar" style="max-width: 100px; max-height: 100px; width: 100px; height: 100px; object-fit: contain;"/>
+                                    </div>
+                                    <div style="text-align: left; max-width: 200px;">
+                                        <strong><field name="name"/></strong>
+                                        <div>
+                                            <span>Estado: <field name="estado"/></span><br/>
+                                            <span>Continente origen: <field name="continente_origen"/></span><br/>
+                                            <span>Pais origen: <field name="pais_origen"/></span><br/><br/>
+                                            <span>Edad: <field name="edad"/></span><br/><br/>
+                                            <span><field name="sexo"/></span><br/><br/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
     </record>
     <record id="zoo_animal_view_tree" model="ir.ui.view">
         <field name="name">zoo.animal.tree</field>
@@ -34,9 +67,10 @@
                 </header>
                 <sheet>
                     <group>
-                        <field name="foto" widget="image" class="oe_avatar"/>
+                        <field name="foto" widget="image" class="oe_avatar" options="{'size': [300, 300]}"/>
                         <field name="name" string="Raza"/>
                         <field name="zoo_id"/>
+                        <field name="zona_id"/>
                         <field name="especie_id"/>
                         <field name="estado"/>  
                     </group>
@@ -60,17 +94,6 @@
                     </notebook>
                 </sheet>
             </form>
-        </field>
-    </record>
-    <record id="zoo_animal_view_search" model="ir.ui.view">
-        <field name="name">zoo.animal.search</field>
-        <field name="model">zoo.animal</field>
-        <field name="arch" type="xml">
-            <search>
-                <field name="name" string="Raza"/>
-                <field name="estado" filter_domain="[('estado', '=', self)]"/>
-                <field name="edad" filter_domain="[('edad', '>=', self)]"/>
-            </search>
         </field>
     </record>
 </odoo>
